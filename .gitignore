@@ -1,5 +1,5 @@
+local_settings.py
 .idea*
-
 # Python #
 *.pyc
 
