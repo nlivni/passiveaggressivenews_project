@@ -1,0 +1,66 @@
+@import url(http://fonts.googleapis.com/css?family=Vollkorn:400,700);
+
+header {
+    text-align: center;
+}
+
+header h1 {
+    font-family: 'Vollkorn', serif;
+    font-weight: 700;
+    font-size: 4em;
+}
+
+header h2 {
+    font-family: 'Vollkorn', serif;
+    font-weight: 700;
+
+}
+
+
+#associated-stories-column {
+    padding:0;
+}
+
+#associated-stories-column .story {
+    margin: 10px 0;
+}
+
+/* todo clear associated stories */
+
+#category-stories {
+    padding: 0;
+    margin: 0;
+}
+
+#category-stories .story {
+    padding-bottom: 10px;
+
+}
+
+#lead-story {
+    clear:left;
+}
+
+.col  .col {
+    margin: 0px -15px;
+}
+
+#associated-stories-column .story{
+    margin-bottom: 30px;
+}
+
+.story img {
+    margin-right: 10px;
+}
+
+#lead-story img{
+    margin: 15px;
+}
+
+.btn {
+    margin: 10px;
+}
+
+.media:first-child {
+    margin-top: 15px;
+}
