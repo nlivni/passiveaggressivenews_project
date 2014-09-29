@@ -2,11 +2,15 @@ from django.db import models
 from taggit.managers import TaggableManager
 import uuid
 
+
 class Category(models.Model):
     """
     For the navigation bar. Each story has one and only one category.
     """
     name = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.name
 
 
 class StoryArchtype(models.Model):
@@ -16,13 +20,16 @@ class StoryArchtype(models.Model):
     name = models.CharField(max_length=50)
     category = models.ForeignKey(Category)
     tags = TaggableManager()
-    id = models.CharField(primary_key=True, default=uuid.uuid4, editable=False)
+    uuid = models.CharField(default=uuid.uuid4, editable=False, max_length=128)
 
     class Meta:
         abstract = True
 
+    def __str__(self):
+        return self.name
 
-class StoryGnome(models.Model):
+
+class StoryGnome(StoryArchtype):
     """
     This is the actual story. The template will contain the text of the story, this model contains the variables
     that will form the "story spine", also the fields of the form.
@@ -31,6 +38,9 @@ class StoryGnome(models.Model):
     subtitle = models.CharField(max_length=50)
     summary = models.TextField()
 
+    def __str__(self):
+        return self.title
+
 
 class AssociatedSnippet(models.Model):
     """
@@ -38,5 +48,7 @@ class AssociatedSnippet(models.Model):
     """
     name = models.CharField(max_length=50)
     text = models.TextField()
-# todo: create more generic story model
 
+
+
+# todo: create more generic story model
