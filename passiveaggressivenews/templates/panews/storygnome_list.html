@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}All the gnome stories{% endblock %}
+
+{% block main %}
+<ul>
+    {%  for story in object_list %}
+
+        <a href="{{ story.uuid }}">{{ story.name }}</a>
+{% endfor %}
+</ul>
+{% endblock %}
