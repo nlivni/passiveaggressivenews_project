@@ -61,8 +61,10 @@ class StoryGnome(StoryArchtype):
     subject_first_name = models.CharField(max_length=90, default="Bob")
     subject_last_name = models.CharField(max_length=90, default="Garfield")
     cleaned_object = models.CharField(max_length=90, default="dirty pizza plate")
+    cleaned_location = models.CharField(max_length=90, default="on the table")
     catchphrase = models.CharField(max_length=90, default="I have a lot of work to do")
     excuse_this_time = models.CharField(max_length=90, default="I'm so tired from playing hockey.")
+    what_subject_did_instead = models.CharField(max_length=90, default="I'm so tired from playing hockey.")
 
 
 

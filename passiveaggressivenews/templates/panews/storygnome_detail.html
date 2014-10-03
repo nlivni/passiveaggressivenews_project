@@ -12,10 +12,10 @@
             <img src="http://placehold.it/225x350" class="img-rounded pull-right">
 
             <p>
-                <mark>{{ story.city|upper }}</mark> - Locals on <mark>{{ story.street }}</mark> are at a loss to explain what has been happening in the <mark>Dawson Residence</mark>. Dishes are being done but no one is doing them! <mark>Last night</mark> <mark>Pete Stoner</mark>'s <mark>dirty pizza plate</mark> was left <mark>on the table</mark>. Police say that this is not at all out of the ordinary. What is extraordinary, however, is that the <mark>dirty pizza plate</mark> was cleaned without any human hands. How could it have been any other way because common decency <mark>as well as several house meetings</mark> demand that each house member take personal responsibility not to act like an animal who lives in <mark>his</mark> own filth.
+                <mark>{{ story.city|upper }}</mark> - Locals on <mark>{{ story.street }}</mark> are at a loss to explain what has been happening in the <mark>{{ story.household }}</mark>. Dishes are being done but no one is doing them! <mark>{{ story.date }}</mark> at {{ story.time }} <mark>{{ story.subject_first_name|capfirst }} {{ story.subject_last_name|capfirst }}</mark>'s <mark>{{ story.cleaned_object }}</mark> was left <mark>{{ story.cleaned_location }}</mark>. Police say that this is not at all out of the ordinary. What is extraordinary, however, is that the <mark>{{ story.cleaned_object }}</mark> was cleaned without any human hands. How could it have been any other way because common decency demands that each house member take personal responsibility not to act like an animal who lives in <mark>his</mark> own filth.
             </p>
 
-            <p>Almost more remarkably, Pete was unaware of the situation. "<mark>I'm going to go practice guitar a bit</mark>", he said, as <mark>he left for his room</mark>. <mark>"Is anyone cooking dinner tonight? I forgot to buy groceries."</mark> While no one has seen the gnomes there have been some missing socks from the washing machine recently, which is often associated with reports the small gremlin like creatures.
+            <p>Almost more remarkably, Pete was unaware of the situation. "<mark>{{ story.excuse_this_time }}</mark>", he said, as <mark>{{ story.what_subject_did_instead }}</mark>. "<mark>{{ story.catchphrase }}</mark>" While no one has seen the gnomes there have been some missing socks from the washing machine recently, which is often associated with reports the small gremlin like creatures.
             </p>
 
 
