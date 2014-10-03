@@ -6,7 +6,95 @@
 <ul>
     {%  for story in object_list %}
 
-        <a href="{{ story.uuid }}">{{ story.name }}</a>
+        <a href="{{ story.slug }}">{{ story.name }}</a>
+
+
 {% endfor %}
 </ul>
+
+
+
+    <div class="container">
+        <div class="col-sm-12 col-md-9 col-lg-8" id="lead-story">
+            <h2>Dish Gnomes: Fact or Fiction?</h2>
+
+
+            <img src="http://placehold.it/225x350" class="img-rounded pull-right">
+
+            <p>
+                <mark>SAN FRANCISCO</mark> - Locals on <mark>Market Street</mark> are at a loss to explain what has been happening in the <mark>Dawson Residence</mark>. Dishes are being done but no one is doing them! <mark>Last night</mark> <mark>Pete Stoner</mark>'s <mark>dirty pizza plate</mark> was left <mark>on the table</mark>. Police say that this is not at all out of the ordinary. What is extraordinary, however, is that the <mark>dirty pizza plate</mark> was cleaned without any human hands. How could it have been any other way because common decency <mark>as well as several house meetings</mark> demand that each house member take personal responsibility not to act like an animal who lives in <mark>his</mark> own filth.
+            </p>
+
+            <p>Almost more remarkably, Pete was unaware of the situation. "<mark>I'm going to go practice guitar a bit</mark>", he said, as <mark>he left for his room</mark>. <mark>"Is anyone cooking dinner tonight? I forgot to buy groceries."</mark> While no one has seen the gnomes there have been some missing socks from the washing machine recently, which is often associated with reports the small gremlin like creatures.
+            </p>
+
+
+            <a href="#" class="btn btn-warning btn-lg"><span class="glyphicon glyphicon-edit"></span> Customize Story</a>
+            <a href="#" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-plus"></span> Create New Story</a>
+            <div class="clearfix visible-xs-block visible-sm-block visible-md-block visible-lg-block"></div>
+
+        </div>
+        <div id="associated-stories-column" class="col-sm-12 col-md-3 col-lg-3">
+            <h4>Obituary for a Sponge</h4>
+            <p class="story">After a long life, Squiggy the Sponge passed on last week. Though his life's work was never fulfilled, he is survived by his children Squoggy, Squelchy, and Zeke.</p>
+            <h4>Have you seen the tupperware?</h4>
+            <p class="story">Tupperware continues to go missing. Could it be related to the why there is never a clean fork?</p>
+            <h4>Man Arrested for Iguana Trafficking</h4>
+            <p class="story">Lucas ipsum dolor sit amet maul kit boba thrawn tusken raider k-3po jade mandalore dantooine sebulba.</p>
+        </div>
+
+
+        <!-- todo http://getbootstrap.com/components/#media-->
+
+        <div id="category-stories" class="col-sm-12 col-md-9 col-lg-8">
+            <div class="col-sm-6 col-md-4 col-lg-4 story media">
+                <h4 class="media-heading">Sports Story</h4>
+                <img src="http://placehold.it/100x100" width="100px" height="100px" class="pull-left img-thumbnail media-object">
+
+                <p>Lucas ipsum dolor sit amet maul kit boba thrawn tusken raider k-3po jade mandalore dantooine sebulba.
+                    <a href="#">Read more</a></p>
+            </div>
+            <div class="clearfix visible-xs-block"></div>
+
+            <div class="col-sm-6 col-md-4 col-lg-4 story media">
+                <h4 class="media-heading">Category Story</h4>
+                <img src="http://placehold.it/100x100" width="100px" height="100px" class="pull-left img-thumbnail media-object">
+                <p>Lucas ipsum dolor sit amet maul kit boba thrawn tusken raider k-3po jade mandalore dantooine sebulba.
+                    <a href="#">Read more</a></p>
+            </div>
+            <div class="clearfix visible-sm-block"></div>
+            <div class="clearfix visible-xs-block"></div>
+
+            <div class="col-sm-6 col-md-4 col-lg-4 story media">
+                <h4 class="media-heading">Category Story</h4>
+                <img src="http://placehold.it/100x100" width="100px" height="100px" class="pull-left img-thumbnail media-object">
+                <p>Lucas ipsum dolor sit amet maul kit boba thrawn tusken raider k-3po jade mandalore dantooine sebulba.
+                    <a href="#">Read more</a></p>
+            </div>
+            <div class="clearfix visible-xs-block"></div>
+            <div class="col-sm-6 col-md-4 col-lg-4 story media">
+                <h4 class="media-heading">Category Story</h4>
+                <img src="http://placehold.it/100x100" width="100px" height="100px" class="pull-left img-thumbnail media-object">
+                <p>Lucas ipsum dolor sit amet maul kit boba thrawn tusken raider k-3po jade mandalore dantooine sebulba.
+                    <a href="#">Read more</a></p>
+            </div>
+            <div class="clearfix visible-xs-block"></div>
+            <div class="clearfix visible-sm-block"></div>
+            <div class="col-sm-6 col-md-4 col-lg-4 story media">
+                <h4 class="media-heading">Category Story</h4>
+                <img src="http://placehold.it/100x100" width="100px" height="100px" class="pull-left img-thumbnail media-object">
+                <p>Lucas ipsum dolor sit amet maul kit boba thrawn tusken raider k-3po jade mandalore dantooine sebulba.
+                    <a href="#">Read more</a></p>
+            </div>
+            <div class="clearfix visible-xs-block"></div>
+            <div class="col-sm-6 col-md-4 col-lg-4 story media">
+                <h4 class="media-heading">Category Story</h4>
+                <img src="http://placehold.it/100x100" width="100px" height="100px" class="pull-left img-thumbnail media-object">
+                <p>Lucas ipsum dolor sit amet maul kit boba thrawn tusken raider k-3po jade mandalore dantooine sebulba.
+                    <a href="#">Read more</a></p>
+            </div>
+        </div>
+
+
+    </div>
 {% endblock %}
