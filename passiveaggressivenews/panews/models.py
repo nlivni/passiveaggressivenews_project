@@ -2,6 +2,39 @@ from django.db import models
 from taggit.managers import TaggableManager
 import uuid
 import datetime
+import ast
+from django.contrib.auth.models import User
+
+
+class ListField(models.TextField):
+    """
+    ListField stores a python list in a model.
+    http://brunorocha.org/python/django/django-listfield-e-separetedvaluesfield.html
+    """
+    __metaclass__ = models.SubfieldBase
+    description = "Stores a python list"
+
+    def __init__(self, *args, **kwargs):
+        super(ListField, self).__init__(*args, **kwargs)
+
+    def to_python(self, value):
+        if not value:
+            value = []
+
+        if isinstance(value, list):
+            return value
+
+        return ast.literal_eval(value)
+
+    def get_prep_value(self, value):
+        if value is None:
+            return value
+
+        return unicode(value)
+
+    def value_to_string(self, obj):
+        value = self._get_val_from_obj(obj)
+        return self.get_db_prep_value(value)
 
 
 def make_uuid():
@@ -16,6 +49,10 @@ def get_current_time():
     return datetime.datetime.now().time()
 
 
+def create_display_text(story):
+        return story.content % tuple(story.variables)
+
+
 class Category(models.Model):
     """
     For the navigation bar. Each story has one and only one category.
@@ -27,58 +64,31 @@ class Category(models.Model):
         return self.name
 
 
-class StoryArchtype(models.Model):
+class Story(models.Model):
     """
-    This is an abstract base class for our hardcoded story models. If we get around to having
-    """
-    name = models.CharField(max_length=50)
-    category = models.ForeignKey(Category)
-    tags = TaggableManager(blank=True)
-    #can't use out of the box w/class based models, which is the whole reason we're doing this.
-    #uuid = models.CharField(default=uuid.uuid4, editable=False, max_length=128)
-    slug = models.SlugField(max_length=255, unique=True, default=make_uuid)
-
-    class Meta:
-        abstract = True
-
-    def __str__(self):
-        return self.name
-
-
-class StoryGnome(StoryArchtype):
-    """
-    This is the actual story. The template will contain the text of the story, this model contains the variables
-    that will form the "story spine", also the fields of the form.
+    generic story model
     """
     title = models.CharField(max_length=50)
-    subtitle = models.CharField(max_length=50)
-    summary = models.TextField()
-    city = models.CharField(max_length=90, default="Tokyo")
-    street = models.CharField(max_length=90, default="Main Street")
-    household = models.CharField(max_length=90, default="THE ")
-    date = models.DateField(default=get_current_date())
-    time = models.TimeField(default=get_current_time())
-    subject_first_name = models.CharField(max_length=90, default="Bob")
-    subject_last_name = models.CharField(max_length=90, default="Garfield")
-    cleaned_object = models.CharField(max_length=90, default="dirty pizza plate")
-    cleaned_location = models.CharField(max_length=90, default="on the table")
-    catchphrase = models.CharField(max_length=90, default="I have a lot of work to do")
-    excuse_this_time = models.CharField(max_length=90, default="I'm so tired from playing hockey.")
-    what_subject_did_instead = models.CharField(max_length=90, default="I'm so tired from playing hockey.")
+    slug = models.SlugField(max_length=255, unique=True, default=make_uuid)
+    subtitle = models.CharField(max_length=50, blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
+    author = models.ForeignKey(User, blank=True, null=True)
+    content = models.TextField(blank=True, null=True)
+    variables = ListField(blank=True, null=True)
+    tags = TaggableManager(blank=True)
+    created = models.DateTimeField(editable=False)
+    modified = models.DateTimeField()
 
+    # The combination of the content and variables that is output to the page
+    def display_text(self):
+        return create_display_text(self)
 
+    # On save, update timestamps
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.created = datetime.datetime.today()
+        self.modified = datetime.datetime.today()
+        return super(Story, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.title
-
-
-class AssociatedSnippet(models.Model):
-    """
-    Appears at the side of the page. not clickable but relate to the general category
-    """
-    name = models.CharField(max_length=50)
-    text = models.TextField()
-
-
-
-# todo: create more generic story model

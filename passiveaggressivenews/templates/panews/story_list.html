@@ -1,17 +1,21 @@
 {% extends "base.html" %}
 
-{% block title %}All the gnome stories{% endblock %}
+{% block title %}All the stories{% endblock %}
 
 {% block main %}
 <ul>
+{% if object_list %}
+    here are the stories:
     {%  for story in object_list %}
 
-        <a href="{{ story.slug }}">{{ story.name }}</a>
+        <a href="{{ story.slug }}">{{ story.title }}</a>
 
 
 {% endfor %}
+{% else %}
+no object list
+{% endif %}
 </ul>
-
 
 
     <div class="container">
