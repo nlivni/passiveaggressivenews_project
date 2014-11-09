@@ -3,7 +3,9 @@ from taggit.managers import TaggableManager
 import uuid
 import datetime
 import ast
+import json
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 
 
 class ListField(models.TextField):
@@ -36,6 +38,10 @@ class ListField(models.TextField):
         value = self._get_val_from_obj(obj)
         return self.get_db_prep_value(value)
 
+    def value_to_json(self, obj):
+        value = self._get_val_from_obj(obj)
+        return json.dumps(self.get_db_prep_value(value))
+
 
 def make_uuid():
     return str(uuid.uuid1().int >> 64)
@@ -50,7 +56,7 @@ def get_current_time():
 
 
 def create_display_text(story):
-        return story.content % tuple(story.variables)
+        return story.content % tuple(story.variable_list())
 
 
 class Category(models.Model):
@@ -79,9 +85,19 @@ class Story(models.Model):
     created = models.DateTimeField(editable=False)
     modified = models.DateTimeField()
 
+    def get_absolute_url(self):
+        return reverse('story-detail', kwargs={'slug': self.slug})
+
+
     # The combination of the content and variables that is output to the page
     def display_text(self):
         return create_display_text(self)
+
+    def variable_list(self):
+        v_list = []
+        for v in self.variables:
+            v_list.append(v[0])
+        return v_list
 
     # On save, update timestamps
     def save(self, *args, **kwargs):

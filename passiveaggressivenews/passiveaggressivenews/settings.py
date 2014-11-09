@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'taggit',
     'panews',
+    'gunicorn'
 )
 
 MIDDLEWARE_CLASSES = (

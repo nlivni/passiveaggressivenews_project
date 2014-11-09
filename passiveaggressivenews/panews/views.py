@@ -2,11 +2,13 @@ from django.shortcuts import render
 
 from django.http import HttpResponse
 from django.views.generic import DetailView, ListView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from panews.models import Story, Category
+from django.core.urlresolvers import reverse_lazy
 
 
 def home(request):
-    return HttpResponse("<h1>hello world</h1>")
+    return HttpResponse("<h1>hello worldz</h1>")
 
 
 def get_category_list():
@@ -38,4 +40,13 @@ class StoryListView(ListView):
         return context
 
 
+class StoryCreate(CreateView):
+    model = Story
 
+
+class StoryUpdate(UpdateView):
+    model = Story
+
+class StoryDelete(DeleteView):
+    model = Story
+    success_url = reverse_lazy('story-list')
