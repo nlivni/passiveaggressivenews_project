@@ -1,7 +1,6 @@
 __author__ = 'nlivni'
 
-from django.conf.urls import patterns, include, url
-from django.views.generic import ListView, DetailView
+from django.conf.urls import patterns, url
 from models import Story
 from panews.views import StoryDetailView, StoryListView, StoryCreate, StoryDelete, StoryUpdate
 
