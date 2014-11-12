@@ -5,7 +5,7 @@ import datetime
 import ast
 import json
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse_lazy
 
 
 class ListField(models.TextField):
@@ -38,10 +38,6 @@ class ListField(models.TextField):
         value = self._get_val_from_obj(obj)
         return self.get_db_prep_value(value)
 
-    def value_to_json(self, obj):
-        value = self._get_val_from_obj(obj)
-        return json.dumps(self.get_db_prep_value(value))
-
 
 def make_uuid():
     return str(uuid.uuid1().int >> 64)
@@ -53,6 +49,13 @@ def get_current_date():
 
 def get_current_time():
     return datetime.datetime.now().time()
+
+
+def create_variable_list(variable_list_array):
+        v_list = []
+        for v in variable_list_array:
+            v_list.append(v[0])
+        return v_list
 
 
 def create_display_text(story):
@@ -83,21 +86,18 @@ class Story(models.Model):
     variables = ListField(blank=True, null=True)
     tags = TaggableManager(blank=True)
     created = models.DateTimeField(editable=False)
+    #auto get mod date
     modified = models.DateTimeField()
 
     def get_absolute_url(self):
-        return reverse('story-detail', kwargs={'slug': self.slug})
-
+        return reverse_lazy('story_detail', kwargs={'slug': self.slug})
 
     # The combination of the content and variables that is output to the page
     def display_text(self):
         return create_display_text(self)
 
     def variable_list(self):
-        v_list = []
-        for v in self.variables:
-            v_list.append(v[0])
-        return v_list
+        return create_variable_list(self.variables)
 
     # On save, update timestamps
     def save(self, *args, **kwargs):

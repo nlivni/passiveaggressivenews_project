@@ -7,7 +7,7 @@ from panews.views import StoryDetailView, StoryListView, StoryCreate, StoryDelet
 
 urlpatterns = patterns('',
     url(r'^$', 'panews.views.home', name='home'),
-    url(r'^story/add/$', StoryCreate.as_view(), name='story_add'),
+    url(r'^story/add/$', StoryCreate.as_view(), name='story_create'),
 
     url(r'^story/(?P<slug>[-_\w]+)/$', StoryDetailView.as_view(),
         name='story_detail'

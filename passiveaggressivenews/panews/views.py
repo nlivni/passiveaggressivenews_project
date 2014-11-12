@@ -4,7 +4,9 @@ from django.http import HttpResponse
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from panews.models import Story, Category
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse, reverse_lazy
+
+from forms import StoryForm
 
 
 def home(request):
@@ -42,11 +44,20 @@ class StoryListView(ListView):
 
 class StoryCreate(CreateView):
     model = Story
+    form_class = StoryForm
+    success_url = reverse_lazy('story_list')
 
 
 class StoryUpdate(UpdateView):
+    # def get_success_url(self):
+    #     if 'slug' in self.kwargs:
+    #         slug = self.kwargs['slug']
+    #     else:
+    #         slug = 'demo'
+    #     return reverse_lazy('/story/%s' % self.slug)
     model = Story
+    form_class = StoryForm
 
 class StoryDelete(DeleteView):
     model = Story
-    success_url = reverse_lazy('story-list')
+    success_url = reverse_lazy('story_list')

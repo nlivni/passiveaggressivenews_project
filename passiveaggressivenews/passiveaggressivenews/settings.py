@@ -38,7 +38,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'taggit',
     'panews',
-    'gunicorn'
+    # 'gunicorn',
+    'crispy_forms',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -99,3 +100,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR,  'media')
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR,  'templates'),
 )
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
+CRISPY_FAIL_SILENTLY = not DEBUG
