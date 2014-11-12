@@ -38,7 +38,7 @@ class StoryForm(ModelForm):
             'title',
             'slug',
             'subtitle',
-            'content',
+            'template',
             'variables',
             'modified',
             FormActions(
@@ -50,10 +50,10 @@ class StoryForm(ModelForm):
 
     def clean(self):
         cleaned_data = super(StoryForm, self).clean()
-        content = cleaned_data.get("content")
+        template = cleaned_data.get("template")
         variables = cleaned_data.get("variables")
 
-        # if content and variables:
+        # if template and variables:
             #only do this if both variables are valid so far
 
             # raise forms.ValidationError("TypeError: There are too many or too few variables for the template."

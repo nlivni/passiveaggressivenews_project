@@ -59,7 +59,7 @@ def create_variable_list(variable_list_array):
 
 
 def create_display_text(story):
-        return story.content % tuple(story.variable_list())
+        return story.template % tuple(story.variable_list())
 
 
 class Category(models.Model):
@@ -82,7 +82,7 @@ class Story(models.Model):
     subtitle = models.CharField(max_length=50, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     author = models.ForeignKey(User, blank=True, null=True)
-    content = models.TextField(blank=True, null=True)
+    template = models.TextField(blank=True, null=True)
     variables = ListField(blank=True, null=True)
     tags = TaggableManager(blank=True)
     created = models.DateTimeField(editable=False)
@@ -92,7 +92,7 @@ class Story(models.Model):
     def get_absolute_url(self):
         return reverse_lazy('story_detail', kwargs={'slug': self.slug})
 
-    # The combination of the content and variables that is output to the page
+    # The combination of the template and variables that is output to the page
     def display_text(self):
         return create_display_text(self)
 
