@@ -1,11 +1,8 @@
-from django.shortcuts import render
-
 from django.http import HttpResponse
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from panews.models import Story, Category
-from django.core.urlresolvers import reverse, reverse_lazy
-
+from django.core.urlresolvers import reverse_lazy
 from forms import StoryForm
 
 
@@ -57,6 +54,7 @@ class StoryUpdate(UpdateView):
     #     return reverse_lazy('/story/%s' % self.slug)
     model = Story
     form_class = StoryForm
+
 
 class StoryDelete(DeleteView):
     model = Story

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}All the stories{% endblock %}
+{% block title %}Passive Aggressive News{% endblock %}
 
 {% block main %}
 
@@ -12,7 +12,7 @@
             {%  for story in object_list %}
 
             <div class="col-sm-6 col-md-4 story media">
-                <h4 class="media-heading"><a href="{{ story.slug }}">{{ story.title }}</a></h4>
+                <h4 class="media-heading"><a href="{% url 'story_detail' story.slug %}">{{ story.title }}</a></h4>
                 <img src="http://placehold.it/100x100" width="100px" height="100px" class="pull-left img-thumbnail media-object">
 
                 <p>Lucas ipsum dolor sit amet maul kit boba thrawn tusken raider k-3po jade mandalore dantooine sebulba.

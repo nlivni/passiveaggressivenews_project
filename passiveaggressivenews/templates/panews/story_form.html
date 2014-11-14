@@ -2,9 +2,13 @@
 {% load crispy_forms_tags %}
 
 {% block main %}
+    {% for v in object.variables %}
+        {% for i in v %}
+    <input type="text" value="{{ i }}"></input>
+            {% endfor %}
+    {% endfor %}
 
             <div class="container">
             {% crispy form %}
             </div>
-
 {% endblock %}
