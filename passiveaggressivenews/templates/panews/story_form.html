@@ -2,11 +2,26 @@
 {% load crispy_forms_tags %}
 
 {% block main %}
-    {% for v in object.variables %}
-    <input type="text" value="{{ v }}"></input>
-    {% endfor %}
 
-            <div class="container">
-            {% crispy form %}
+
+        <div class="row">
+            <div id ="preview" class="jumbotron">No Text</div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-sm-6 col-sm-push-6">
+                <h3>Variables</h3>
+                {% for v in object.variables %}<div class="var_input form-group" ><input class="form-control" type="text" value="{{ v }}"></div></input>{% endfor %}
+                <div class="form-actions">
+                    <input type="button" class="btn btn-inverse"value="add variable input">
+                </div>
             </div>
+
+            <div class="col-sm-6 col-sm-pull-6">
+                <h3>Form</h3>
+                {% crispy form %}
+            </div>
+
+        </div>
 {% endblock %}

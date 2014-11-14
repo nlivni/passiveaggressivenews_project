@@ -6205,3 +6205,10 @@ header {
 footer {
   margin-top: 50px;
 }
+.preview {
+  width: 100%;
+  display: none;
+  float: left;
+  border: dashed;
+  border-width: thick;
+}
