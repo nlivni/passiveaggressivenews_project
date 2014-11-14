@@ -3,9 +3,7 @@
 
 {% block main %}
     {% for v in object.variables %}
-        {% for i in v %}
-    <input type="text" value="{{ i }}"></input>
-            {% endfor %}
+    <input type="text" value="{{ v }}"></input>
     {% endfor %}
 
             <div class="container">

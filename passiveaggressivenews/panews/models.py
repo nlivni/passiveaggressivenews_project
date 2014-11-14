@@ -50,16 +50,16 @@ def get_current_date():
 def get_current_time():
     return datetime.datetime.now().time()
 
-
-def create_variable_list(variable_list_array):
-        v_list = []
-        for v in variable_list_array:
-            v_list.append(v[0])
-        return v_list
+# @todo deprecated code based on nested arrays in listfield. remove once project is running.
+# def create_variable_list(variable_list_array):
+#         v_list = []
+#         for v in variable_list_array:
+#             v_list.append(v[0])
+#         return v_list
 
 
 def create_display_text(story):
-        return story.template % tuple(story.variable_list())
+        return story.template % tuple(story.variables)
 
 
 class Category(models.Model):

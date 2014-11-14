@@ -2,7 +2,7 @@ __author__ = 'nlivni'
 
 from django import forms
 from django.forms import ModelForm
-from panews.models import Story, create_variable_list
+from panews.models import Story
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Reset, Submit, Button
 from crispy_forms.bootstrap import FormActions
