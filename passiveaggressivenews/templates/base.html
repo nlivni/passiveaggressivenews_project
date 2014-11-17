@@ -10,11 +10,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.css" %}">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="{% static "js/story_preview.js" %}"></script>
-    <script src="{% static "js/story_validate.js" %}"></script>
-    <script src="{% static "js/story_harvest.js" %}"></script>
-    <script src="{% static "js/story_vars.js" %}"></script>
 
 </head>
 <body>
@@ -33,15 +28,15 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand visible-xs-block" href="#">Be a Passive Aggressive Reporter</a>
+                <a class="navbar-brand visible-xs-block" href="#">My Stories</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="panews-navbar-collapse">
                 <ul class="nav navbar-nav">
-                <li><a href="#">Our Mission</a></li>
+                <li><a href="#">My Stories</a></li>
                 {% for c in category_list %}
-                    <li><a href="#">{{ c.name }}</a></li>
+                    <li><a href="{% url 'category_list' c.slug %}">{{ c.name }}</a></li>
                 {% endfor %}
                 </ul>
             </div><!-- /.navbar-collapse -->
@@ -49,7 +44,7 @@
     </nav>
 
 </header>
-<main>
+<main class="container">
     {% block main %}
 
 maintext
@@ -70,5 +65,8 @@ maintext
 
 <script src="http://code.jquery.com/jquery.min.js"></script>
 <script src="{% static "js/bootstrap.min.js" %}"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+{% block scripts %}
+{% endblock %}
 </body>
 </html>

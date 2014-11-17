@@ -1,16 +1,15 @@
 {% extends "base.html" %}
 {% load bleach_tags %}
 
-{% block title %}Passive Aggressive News{% endblock %}
+{% block title %}All the stories{% endblock %}
 
 {% block main %}
-
-
+<h2>{{ category }} Stories</h2>
     <div class="container category-story-list">
 
         {% if story_list %}
-            {%  for story in story_list %}
             {% if forloop.first %}<div class="row">{% endif %}
+            {%  for story in story_list %}
 
             <div class="col-sm-4 story media">
                 <h4 class="media-heading"><a href="{% url 'story_detail' story.slug %}">{{ story.title }}</a></h4>

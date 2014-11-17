@@ -9,28 +9,31 @@
 
     <div class="container">
             <div class="row">
-            <div id ="preview" class="jumbotron">No Text</div>
+                <div class="col-sm-9">
+                    <div id ="preview" class="jumbotron">No Text</div>
+                </div>
+
+
+                <div class="col-sm-3">
+                     <h3>Variables</h3>
+                    <div id="var_fields">
+                    {% if object.variables %}
+                    {% for v in object.variables %}<div class="var_input form-group" ><input class="form-control var-field" id="var-field-{{ forloop.counter0 }}" type="text" value="{{ v }}"></div></input>{% endfor %}
+                    {% else %}This template has no variables so there is nothing to change.
+                    {% endif %}
+                    </div>
+
+                    {% crispy form %}
+                </div>
+
+                </div>
+
         </div>
 
         <div class="row">
             <div class="col-sm-4 col-sm-push-8">
-                <h3>Variables</h3>
-                <div id="var_fields">
-                    {% if object.variables %}
-                    {% for v in object.variables %}<div class="var_input form-group" ><input class="form-control var-field" id="var-field-{{ forloop.counter0 }}" type="text" value="{{ v }}"></div></input>{% endfor %}
-                    {% else %}<div class="var_input form-group" ><input class="form-control var-field" id="var-field-0" type="text" value=""></div></input>
-                    {% endif %}
-
-                    <div class="form-actions">
-                        <input type="button" class="btn btn-inverse"value="add variable input" id="add_var_btn">
-                    </div>
-                </div>
             </div>
 
-            <div class="col-sm-8 col-sm-pull-4">
-                <h3>Form</h3>
-                {% crispy form %}
-            </div>
 
         </div>
     </div>

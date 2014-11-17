@@ -3,10 +3,9 @@ from taggit.managers import TaggableManager
 import uuid
 import datetime
 import ast
-import json
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse_lazy
-
+from django_bleach.models import BleachField
 
 class ListField(models.TextField):
     """
@@ -59,7 +58,16 @@ def get_current_time():
 
 
 def create_display_text(story):
-        return story.template % tuple(story.variables)
+    var_count = story.template.count("%s")
+
+    while var_count > len(story.variables):
+        story.variables.append('')
+
+    new_variables = story.variables[:var_count]
+
+    return story.template % tuple(new_variables)
+
+
 
 
 class Category(models.Model):
@@ -79,15 +87,17 @@ class Story(models.Model):
     """
     title = models.CharField(max_length=50)
     slug = models.SlugField(max_length=255, unique=True, default=make_uuid)
+    category = models.ForeignKey(Category, blank=True, null=True)
     subtitle = models.CharField(max_length=50, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     author = models.ForeignKey(User, blank=True, null=True)
-    template = models.TextField(blank=True, null=True)
+    template = BleachField(blank=True, null=True)
     variables = ListField(blank=True, null=True)
     tags = TaggableManager(blank=True)
     created = models.DateTimeField(editable=False)
     #auto get mod date
-    modified = models.DateTimeField()
+    modified = models.DateTimeField(default=datetime.datetime.now())
+    from_template = models.ForeignKey('self', blank=True, null=True)
 
     def get_absolute_url(self):
         return reverse_lazy('story_detail', kwargs={'slug': self.slug})
@@ -96,8 +106,8 @@ class Story(models.Model):
     def display_text(self):
         return create_display_text(self)
 
-    def variable_list(self):
-        return create_variable_list(self.variables)
+    # def variable_list(self):
+    #     return create_variable_list(self.variables)
 
     # On save, update timestamps
     def save(self, *args, **kwargs):

@@ -40,6 +40,8 @@ INSTALLED_APPS = (
     'panews',
     # 'gunicorn',
     'crispy_forms',
+    'bleach',
+    'django_bleach',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -103,3 +105,25 @@ TEMPLATE_DIRS = (
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 CRISPY_FAIL_SILENTLY = not DEBUG
+
+
+# Which HTML tags are allowed
+BLEACH_ALLOWED_TAGS = ['p', 'b', 'i', 'u', 'em', 'strong', 'a']
+
+# Which HTML attributes are allowed
+BLEACH_ALLOWED_ATTRIBUTES = ['href', 'title', 'style']
+
+# Which CSS properties are allowed in 'style' attributes (assuming
+# style is an allowed attribute)
+BLEACH_ALLOWED_STYLES = [
+    'font-family', 'font-weight', 'text-decoration', 'font-variant']
+
+# Strip unknown tags if True, replace with HTML escaped characters if
+# False
+BLEACH_STRIP_TAGS = True
+
+# Strip comments, or leave them in.
+BLEACH_STRIP_COMMENTS = False
+
+# Use the CKEditorWidget for bleached HTML fields
+BLEACH_DEFAULT_WIDGET = 'wysiwyg.widgets.WysiwygWidget'

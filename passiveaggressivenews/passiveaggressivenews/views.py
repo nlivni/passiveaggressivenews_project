@@ -4,13 +4,4 @@ from django.http import HttpResponse
 
 
 def home(request):
-    return HttpResponse("<h1>hello world</h1>")
-
-#todo homepage
-
-
-
-#todo storylist
-
-
-#todo storylist by
+    return HttpResponse("<h1>this is being served by the sotewide urls.py</h1>")
