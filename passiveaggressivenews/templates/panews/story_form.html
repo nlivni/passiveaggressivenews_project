@@ -5,6 +5,20 @@
 
 {% block main %}
 
+<!-- @todo add training text to update form
+<div class="row">
+    <div class="col-sm-4">
+        <h3>Step 1: Change the story variables.</h3>
+    </div>
+    <div class="col-sm-4">
+        <h3>Step 2: Click to save.</h3>
+    </div>
+    <div class="col-sm-4">
+        <h3>Step 3: Send the story to friends!</h3>
+    </div>
+
+</div>
+-->
 
 
     <div class="container">
@@ -29,7 +43,13 @@
 
             <div class="col-sm-8 col-sm-pull-4">
                 <h3>Form</h3>
+                {% load wysiwyg %}
+                {% wysiwyg_setup %}
+
+                {{ form.media }}
+
                 {% crispy form %}
+                {% wysiwyg_editor "id_template" %}
             </div>
 
         </div>
@@ -40,6 +60,5 @@
 {% block scripts %}
     <script src="{% static "js/story_validate.js" %}"></script>
     <script src="{% static "js/story_vars.js" %}"></script>
-
 
 {% endblock %}

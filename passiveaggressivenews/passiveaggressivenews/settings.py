@@ -42,6 +42,8 @@ INSTALLED_APPS = (
     'crispy_forms',
     'bleach',
     'django_bleach',
+#    'ckeditor',
+    'django_wysiwyg',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -89,6 +91,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = 'c:/users/nlivni/Dropbox/sites/django-projects/passiveaggressivenews_project/passiveaggressivenews/static/'
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
@@ -98,7 +101,7 @@ MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR,  'media')
 
-
+DJANGO_WYSIWYG_FLAVOR = "ckeditor"
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR,  'templates'),
 )
@@ -126,4 +129,25 @@ BLEACH_STRIP_TAGS = True
 BLEACH_STRIP_COMMENTS = False
 
 # Use the CKEditorWidget for bleached HTML fields
-BLEACH_DEFAULT_WIDGET = 'wysiwyg.widgets.WysiwygWidget'
+BLEACH_DEFAULT_WIDGET = 'ckeditor.widgets.CKEditorWidget'
+# BLEACH_DEFAULT_WIDGET = 'django.forms.EmailInput'
+
+#
+# CKEDITOR_UPLOAD_PATH = "uploads/"
+#
+# CKEDITOR_IMAGE_BACKEND = 'pillow'
+#
+# CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
+#
+# CKEDITOR_CONFIGS = {
+#     'awesome_ckeditor': {
+#         'toolbar': 'Basic',
+#     },
+#     'default': {
+#         'toolbar': 'Basic',
+#     },
+# }
+#
+
+#DJANGO_WYSIWYG_MEDIA_URL = STATIC_URL + "ckeditor/"
+DJANGO_WYSIWYG_FLAVOR = "ckeditor"

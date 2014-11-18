@@ -5,7 +5,6 @@ from panews.models import Story
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Reset, Submit, Button, Field
 from crispy_forms.bootstrap import FormActions
-
 # todo: story creation form (from scratch w/variables)
 # todo: story mod form (with variables) - no login required
 """
@@ -28,6 +27,8 @@ The form will need to be able to do the following:
 class StoryTemplateForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(StoryTemplateForm, self).__init__(*args, **kwargs)
+        # self.fields['template'].widget = CKEditorWidget
+
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
         self.helper.label_class = 'col-sm-2'
@@ -50,6 +51,16 @@ class StoryTemplateForm(ModelForm):
                 wrapper_class='hidden',
                 # type="hidden",
             ),
+                # Field(
+                #     'from_template',
+                #     wrapper_class='hidden',
+                #     # type="hidden",
+                # ),
+            # Field(
+            #     'author',
+            #     wrapper_class='hidden',
+            #     # type="hidden",
+            # ),
             Field(
                 'modified',
                 wrapper_class='hidden',

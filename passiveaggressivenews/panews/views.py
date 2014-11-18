@@ -5,8 +5,8 @@ from panews.models import Story, Category
 from django.core.urlresolvers import reverse_lazy
 from forms import StoryTemplateForm, StoryCustomForm
 from datetime import datetime
-
-
+from django import forms
+from django_bleach.forms import BleachField
 # @todo this is outdated. remove
 def home(request):
     return HttpResponse("<h1>this is being serverved by the panews 'home'</h1>")
@@ -18,7 +18,7 @@ def get_category_list():
 
 
 def get_template_list():
-    template_list = Story.objects.filter(author__isnull=False).filter(from_template__isnull=True)
+    template_list = Story.objects.filter(from_template__isnull=True)
     return template_list
 
 
@@ -65,6 +65,10 @@ class StoryListView(ListView):
         context['category_list'] = get_category_list()
         return context
 
+    def get_queryset(self):
+        queryset = get_template_list()
+        return queryset
+
 
 class StoryTemplateCreate(CreateView):
     model = Story
@@ -77,6 +81,7 @@ class StoryCustom(CreateView):
     form_class = StoryCustomForm
     success_url = reverse_lazy('story_list')
     template_name = "panews/story_custom_form.html"
+    # template = forms.CharField(widget=CKEditorWidget())
 
     def get_initial(self):
         if self.request.user:
@@ -96,7 +101,7 @@ class StoryCustom(CreateView):
         initial['variables'] = parent.variables
         initial['tags'] = parent.tags
         initial['modified'] = datetime.now()
-        initial['from_template'] = parent
+        initial['from_template'] = parent.pk
         return initial
 
     def get_context_data(self, **kwargs):
@@ -108,6 +113,7 @@ class StoryCustom(CreateView):
         context['object'] = parent
         return context
 
+
 class StoryUpdate(UpdateView):
     # def get_success_url(self):
     #     if 'slug' in self.kwargs:
@@ -115,8 +121,11 @@ class StoryUpdate(UpdateView):
     #     else:
     #         slug = 'demo'
     #     return reverse_lazy('/story/%s' % self.slug)
+
     model = Story
     form_class = StoryTemplateForm
+    template = BleachField()
+
 
 
 class StoryDelete(DeleteView):

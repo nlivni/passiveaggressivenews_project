@@ -6,7 +6,8 @@ $(function() {
 
     function update_preview() {
         var title = document.getElementById("id_title").value;
-        var template = document.getElementById("id_template").value;
+//        var template = document.getElementById("id_template").value;
+        var template = CKEDITOR.instances['id_template'].getData()
         var preview = document.getElementById("preview");
         var var_fields = $(".var-field");
         var var_array = [];
@@ -19,14 +20,16 @@ $(function() {
 
         for (i=0; i < var_array.length; i++) {
             var v = var_array[i];
-            template = template.replace(/%s/i, v);
+            var v_div = "<mark>" + v + "</mark>";
+            template = template.replace(/%s/i, v_div);
         }
         //console.log(template);
-        preview.innerHTML = "<h2>" + title + "</h2>" + "<p>" + template + "</p>";
+        preview.innerHTML = "<h2>" + title + "</h2>" + template;
         console.log("update_preview")
     };
+    CKEDITOR.instances['id_template'].on('change', update_preview);
 
-    $('#id_template').change(update_preview);
+//    $('#id_template').change(update_preview);
     $(document).keyup(update_preview);
     $(document).ready(update_preview);
 
@@ -44,7 +47,10 @@ $(function() {
             if (i) var_list += ",";
             //escape apostrophes to avoid malformed list
             // @todo - currently looks ugly in var_field, fix to make conversation too and from var_field
-            var_fields[i].value = var_fields[i].value.replace("'","&#x27");
+            if (var_fields[i].value.search("'")) {
+                var_fields[i].value = var_fields[i].value.replace("'","&#x27");
+            }
+
             var_list += "'" + var_fields[i].value + "'";
         }
         // test to make sure there's variables, otherwise the extra comma will throw python error
@@ -64,7 +70,7 @@ $(function() {
     }
 
     $(document).ready(story_harvest);
-    $(document).on('keyup','.var-field',story_harvest);
+    $(document).on('change','.var-field',story_harvest);
 
     $(add_var_btn).click(function() {
 

@@ -1,8 +1,6 @@
 {% extends "base.html" %}
 {% load bleach_tags %}
 
-{% block title %}All the stories{% endblock %}
-
 {% block main %}
 <h2>{{ category }} Stories</h2>
     <div class="container category-story-list">
@@ -24,7 +22,7 @@
 
 
         {% else %}
-        no story list
+        <p>No {{ category|lower }} stories yet. But it's cool of you to check and it's really neat that you're interested in {{ category|lower }} stuff. Do something nice for yourself today!</p>
         {% endif %}
 
 

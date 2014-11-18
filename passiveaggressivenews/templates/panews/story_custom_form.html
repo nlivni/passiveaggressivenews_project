@@ -5,38 +5,42 @@
 
 {% block main %}
 
+<!-- @todo add training text to customize form
+<div class="row">
+    <div class="col-sm-4">
+        <h3>Step 1: Change the story variables.</h3>
+    </div>
+    <div class="col-sm-4">
+        <h3>Step 2: Click to save.</h3>
+    </div>
+    <div class="col-sm-4">
+        <h3>Step 3: Send the story to friends!</h3>
+    </div>
 
+</div>
+-->
+<div class="container">
 
-    <div class="container">
-            <div class="row">
-                <div class="col-sm-9">
-                    <div id ="preview" class="jumbotron">No Text</div>
-                </div>
-
-
-                <div class="col-sm-3">
-                     <h3>Variables</h3>
-                    <div id="var_fields">
-                    {% if object.variables %}
-                    {% for v in object.variables %}<div class="var_input form-group" ><input class="form-control var-field" id="var-field-{{ forloop.counter0 }}" type="text" value="{{ v }}"></div></input>{% endfor %}
-                    {% else %}This template has no variables so there is nothing to change.
-                    {% endif %}
-                    </div>
-
-                    {% crispy form %}
-                </div>
-
-                </div>
-
+    <div class="row">
+        <div class="col-sm-9">
+            <div id ="preview" class="jumbotron">No Text</div>
         </div>
 
-        <div class="row">
-            <div class="col-sm-4 col-sm-push-8">
+
+        <div class="col-sm-3">
+            <h3>Variables</h3>
+            <div id="var_fields">
+                {% if object.variables %}
+                {% for v in object.variables %}<div class="var_input form-group" ><input class="form-control var-field" id="var-field-{{ forloop.counter0 }}" type="text" value="{{ v }}"></div></input>{% endfor %}
+                {% else %}This template has no variables so there is nothing to change.
+                {% endif %}
             </div>
-
-
+            {{ form.media }}
+            {% crispy form %}
         </div>
     </div>
+</div>
+
 
 {% endblock %}
 
