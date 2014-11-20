@@ -124,6 +124,11 @@ class StoryCustomForm(ModelForm):
 
             ),
             Field(
+                'edit_slug',
+                type="hidden",
+
+            ),
+            Field(
                 'template',
                 # type="hidden",
                 wrapper_class='hidden',
@@ -131,6 +136,15 @@ class StoryCustomForm(ModelForm):
             ),
             Field(
                 'variables',
+                wrapper_class='hidden',
+                type="hidden",
+            ),
+            Field(
+                'author_email',
+                type="hidden",
+            ),
+            Field(
+                'author_name',
                 wrapper_class='hidden',
                 type="hidden",
             ),

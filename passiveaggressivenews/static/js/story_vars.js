@@ -28,7 +28,8 @@ $(function() {
         console.log("update_preview")
     };
 //    @todo id_#template is for textarea not ckeditor. needs to be changed for update to work. seems to work when variables are updated though....
-    $('#id_template').change(update_preview);
+//    $('#id_template').change(update_preview);
+    CKEDITOR.instances['id_template'].on('change', update_preview);
     $(document).keyup(update_preview);
     $(document).ready(update_preview);
 
