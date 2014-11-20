@@ -5,6 +5,7 @@ from panews.models import Story
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Reset, Submit, Button, Field
 from crispy_forms.bootstrap import FormActions
+# from ckeditor.widgets import CKEditorWidget
 # todo: story creation form (from scratch w/variables)
 # todo: story mod form (with variables) - no login required
 """
@@ -44,6 +45,11 @@ class StoryTemplateForm(ModelForm):
 
             ),
             Field(
+                'edit_slug',
+                type="hidden",
+
+            ),
+            Field(
                 'template'
             ),
             Field(
@@ -61,6 +67,14 @@ class StoryTemplateForm(ModelForm):
             #     wrapper_class='hidden',
             #     # type="hidden",
             # ),
+            Field(
+                'author_name',
+
+            ),
+            Field(
+                'author_email',
+
+            ),
             Field(
                 'modified',
                 wrapper_class='hidden',
@@ -88,7 +102,7 @@ class StoryTemplateForm(ModelForm):
 
     class Meta:
         model = Story
-        fields = ['title', 'slug', 'template', 'variables', 'modified']
+        fields = ['title', 'slug', 'edit_slug', 'template', 'variables', 'modified', 'author_name', 'author_email']
 
 
 class StoryCustomForm(ModelForm):
@@ -111,7 +125,8 @@ class StoryCustomForm(ModelForm):
             ),
             Field(
                 'template',
-                type="hidden",
+                # type="hidden",
+                wrapper_class='hidden',
 
             ),
             Field(
@@ -145,4 +160,4 @@ class StoryCustomForm(ModelForm):
 
     class Meta:
         model = Story
-        fields = ['title', 'slug', 'template', 'variables', 'modified']
+        fields = ['title', 'slug', 'edit_slug', 'template', 'variables', 'modified', 'author_name', 'author_email']

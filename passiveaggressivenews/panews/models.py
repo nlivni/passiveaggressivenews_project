@@ -3,9 +3,9 @@ from taggit.managers import TaggableManager
 import uuid
 import datetime
 import ast
-from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse_lazy
 from django_bleach.models import BleachField
+
 
 class ListField(models.TextField):
     """
@@ -39,7 +39,7 @@ class ListField(models.TextField):
 
 
 def make_uuid():
-    return str(uuid.uuid1().int >> 64)
+    return str(uuid.uuid4().int >> 64)
 
 
 def get_current_date():
@@ -68,8 +68,6 @@ def create_display_text(story):
     return story.template % tuple(new_variables)
 
 
-
-
 class Category(models.Model):
     """
     For the navigation bar. Each story has one and only one category.
@@ -87,10 +85,12 @@ class Story(models.Model):
     """
     title = models.CharField(max_length=50)
     slug = models.SlugField(max_length=255, unique=True, default=make_uuid)
+    edit_slug = models.SlugField(max_length=255, unique=True, default=make_uuid)
     category = models.ForeignKey(Category, blank=True, null=True)
     subtitle = models.CharField(max_length=50, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
-    author = models.ForeignKey(User, blank=True, null=True)
+    author_name = models.CharField(max_length=30, blank=True, null=True)
+    author_email = models.EmailField(blank=True, null=True)
     template = BleachField(blank=True, null=True)
     variables = ListField(blank=True, null=True)
     tags = TaggableManager(blank=True)

@@ -115,17 +115,9 @@ class StoryCustom(CreateView):
 
 
 class StoryUpdate(UpdateView):
-    # def get_success_url(self):
-    #     if 'slug' in self.kwargs:
-    #         slug = self.kwargs['slug']
-    #     else:
-    #         slug = 'demo'
-    #     return reverse_lazy('/story/%s' % self.slug)
-
     model = Story
     form_class = StoryTemplateForm
-    template = BleachField()
-
+    # template = BleachField()
 
 
 class StoryDelete(DeleteView):

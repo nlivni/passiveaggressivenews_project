@@ -35,8 +35,13 @@
                 {% else %}This template has no variables so there is nothing to change.
                 {% endif %}
             </div>
-            {{ form.media }}
-            {% crispy form %}
+                {% load wysiwyg %}
+                {% wysiwyg_setup %}
+
+                {{ form.media }}
+
+                {% crispy form %}
+                {% wysiwyg_editor "id_template" %}
         </div>
     </div>
 </div>
