@@ -1,15 +1,13 @@
-from django.http import HttpResponse
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from panews.models import Story, Category
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse_lazy, reverse
 from forms import StoryTemplateForm, StoryCustomForm
 from datetime import datetime
-from django import forms
-from django_bleach.forms import BleachField
-# @todo this is outdated. remove
-def home(request):
-    return HttpResponse("<h1>this is being serverved by the panews 'home'</h1>")
+from passiveaggressivenews.settings import SITE_ID
+from django.contrib.sites.models import Site
+
+# @todo get general context that is sent to all views
 
 
 def get_category_list():
@@ -27,10 +25,11 @@ class StoryDetailView(DetailView):
     model = Story
 
     def get_context_data(self, **kwargs):
-        #call the base implementation first to get a context
+        # call the base implementation first to get a context
         context = super(StoryDetailView, self).get_context_data(**kwargs)
-        #add in a queryset of all the categories
+        # add in a queryset of all the categories
         context['category_list'] = get_category_list()
+        context['SITE_URL'] = Site.objects.get(pk=SITE_ID).domain
         return context
 
 
@@ -46,11 +45,11 @@ class CategoryListView(ListView):
 
     def get_context_data(self, **kwargs):
         slug = self.kwargs['category_slug']
-        #call the base implementation first to get a context
+        # call the base implementation first to get a context
         context = super(CategoryListView, self).get_context_data(**kwargs)
-        #add in a queryset of all the categories
         context['category_list'] = get_category_list()
         context['category'] = Category.objects.get(slug=slug)
+        context['SITE_URL'] = Site.objects.get(pk=SITE_ID).domain
         return context
 
 
@@ -59,10 +58,10 @@ class StoryListView(ListView):
     model = Story
 
     def get_context_data(self, **kwargs):
-        #call the base implementation first to get a context
+        # call the base implementation first to get a context
         context = super(StoryListView, self).get_context_data(**kwargs)
-        #add in a queryset of all the categories
         context['category_list'] = get_category_list()
+        context['SITE_URL'] = Site.objects.get(pk=SITE_ID).domain
         return context
 
     def get_queryset(self):
@@ -75,17 +74,32 @@ class StoryTemplateCreate(CreateView):
     form_class = StoryTemplateForm
     success_url = reverse_lazy('story_list')
 
+    def get_context_data(self, **kwargs):
+        # call the base implementation first to get a context
+        context = super(StoryTemplateCreate, self).get_context_data(**kwargs)
+        context['category_list'] = get_category_list()
+        return context
+
+    def get_success_url(self):
+        edit_slug = self.object.edit_slug
+        return reverse_lazy('story_success', kwargs={'edit_slug': edit_slug})
+
+
 
 class StoryCustom(CreateView):
     model = Story
     form_class = StoryCustomForm
-    success_url = reverse_lazy('story_list')
     template_name = "panews/story_custom_form.html"
-    # template = forms.CharField(widget=CKEditorWidget())
+
+    def get_success_url(self):
+        slug = self.kwargs['slug']
+        edit_slug = Story.objects.get(slug=slug).edit_slug
+        return reverse('story_success', kwargs={'edit_slug': edit_slug})
+
+
+
 
     def get_initial(self):
-        if self.request.user:
-            user = self.request.user
         # Get the initial dictionary from the superclass method
         initial = super(StoryCustom, self).get_initial()
         # Copy the dictionary so we don't accidentally change a mutable dict
@@ -96,7 +110,6 @@ class StoryCustom(CreateView):
         initial['subtitle'] = parent.subtitle
         initial['category'] = parent.category
         initial['description'] = parent.description
-        initial['author'] = user
         initial['template'] = parent.template
         initial['variables'] = parent.variables
         initial['tags'] = parent.tags
@@ -105,19 +118,53 @@ class StoryCustom(CreateView):
         return initial
 
     def get_context_data(self, **kwargs):
-        #call the base implementation first to get a context
+        # call the base implementation first to get a context
         context = super(StoryCustom, self).get_context_data(**kwargs)
-        #add in a queryset of all the categories
+        # add in a queryset of all the categories
         parent_slug = self.kwargs.get('slug')
         parent = Story.objects.get(slug=parent_slug)
         context['object'] = parent
+        context['category_list'] = get_category_list()
+        context['SITE_URL'] = Site.objects.get(pk=SITE_ID).domain
+
         return context
 
 
 class StoryUpdate(UpdateView):
     model = Story
+    template_name = 'panews/story_form.html'
     form_class = StoryTemplateForm
-    # template = BleachField()
+    slug_field = 'edit_slug'
+    slug_url_kwarg = 'edit_slug'
+
+    def get_success_url(self):
+        edit_slug = self.kwargs['edit_slug']
+        return reverse_lazy('story_success', kwargs={'edit_slug': edit_slug})
+
+    def get_context_data(self, **kwargs):
+        # call the base implementation first to get a context
+        context = super(StoryUpdate, self).get_context_data(**kwargs)
+        # add in a queryset of all the categories
+        context['SITE_URL'] = Site.objects.get(pk=SITE_ID).domain
+        context['category_list'] = get_category_list()
+        return context
+
+
+class StorySuccessView(DetailView):
+    context_object_name = "story"
+    model = Story
+    slug_field = 'edit_slug'
+    slug_url_kwarg = 'edit_slug'
+    template_name = 'panews/story_detail_success.html'
+
+    def get_context_data(self, **kwargs):
+        # call the base implementation first to get a context
+        context = super(StorySuccessView, self).get_context_data(**kwargs)
+        # add in a queryset of all the categories
+        context['SITE_URL'] = Site.objects.get(pk=SITE_ID).domain
+        context['category_list'] = get_category_list()
+        context['is_success_page'] = True
+        return context
 
 
 class StoryDelete(DeleteView):

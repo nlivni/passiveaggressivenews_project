@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = (
     'django.contrib.admin',
+    'django.contrib.sites',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -38,13 +39,14 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'taggit',
     'panews',
-    # 'gunicorn',
     'crispy_forms',
     'bleach',
     'django_bleach',
-#    'ckeditor',
     'django_wysiwyg',
+    'django_social_share',
 )
+
+SITE_ID = 1
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',

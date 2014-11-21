@@ -28,7 +28,6 @@ The form will need to be able to do the following:
 class StoryTemplateForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(StoryTemplateForm, self).__init__(*args, **kwargs)
-        # self.fields['template'].widget = CKEditorWidget
 
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
@@ -57,16 +56,6 @@ class StoryTemplateForm(ModelForm):
                 wrapper_class='hidden',
                 # type="hidden",
             ),
-                # Field(
-                #     'from_template',
-                #     wrapper_class='hidden',
-                #     # type="hidden",
-                # ),
-            # Field(
-            #     'author',
-            #     wrapper_class='hidden',
-            #     # type="hidden",
-            # ),
             Field(
                 'author_name',
 
@@ -81,6 +70,11 @@ class StoryTemplateForm(ModelForm):
                 #type="hidden",
 
             ),
+            Field(
+                'from_template',
+                type="hidden",
+
+            ),
             FormActions(
                 Submit('submit', 'Save changes'),
                 Reset('reset', 'Reset'),
@@ -88,21 +82,21 @@ class StoryTemplateForm(ModelForm):
             ),
         )
 
-    def clean(self):
-        cleaned_data = super(StoryTemplateForm, self).clean()
-        template = cleaned_data.get("template")
-        variables = cleaned_data.get("variables")
-
-        # if template and variables:
-            #only do this if both variables are valid so far
-
-            # raise forms.ValidationError("TypeError: There are too many or too few variables for the template."
-            #                             "Please check to make sure that each variable matches a single %s "
-            #                             "in the template." + "variables: " + str(len(v_list)) + variables)
+    # def clean(self):
+    #     cleaned_data = super(StoryTemplateForm, self).clean()
+    #     template = cleaned_data.get("template")
+    #     variables = cleaned_data.get("variables")
+    #
+    #     # if template and variables:
+    #         #only do this if both variables are valid so far
+    #
+    #         # raise forms.ValidationError("TypeError: There are too many or too few variables for the template."
+    #         #                             "Please check to make sure that each variable matches a single %s "
+    #         #                             "in the template." + "variables: " + str(len(v_list)) + variables)
 
     class Meta:
         model = Story
-        fields = ['title', 'slug', 'edit_slug', 'template', 'variables', 'modified', 'author_name', 'author_email']
+        fields = ['title', 'slug', 'edit_slug', 'template', 'variables', 'modified', 'author_name', 'author_email', 'from_template']
 
 
 class StoryCustomForm(ModelForm):
@@ -116,7 +110,7 @@ class StoryCustomForm(ModelForm):
         self.helper.layout = Layout(
             Field(
                 'title',
-                type="hidden",
+                # type="hidden",
             ),
             Field(
                 'slug',
@@ -153,6 +147,11 @@ class StoryCustomForm(ModelForm):
                 type="hidden",
 
             ),
+            Field(
+                'from_template',
+                type="hidden",
+
+            ),
             FormActions(
                 Submit('submit', 'Save changes'),
                 Reset('reset', 'Reset'),
@@ -160,10 +159,10 @@ class StoryCustomForm(ModelForm):
             ),
         )
 
-    def clean(self):
-        cleaned_data = super(StoryCustomForm, self).clean()
-        template = cleaned_data.get("template")
-        variables = cleaned_data.get("variables")
+    # def clean(self):
+    #     cleaned_data = super(StoryCustomForm, self).clean()
+    #     template = cleaned_data.get("template")
+    #     variables = cleaned_data.get("variables")
 
         # if template and variables:
             #only do this if both variables are valid so far
@@ -174,4 +173,4 @@ class StoryCustomForm(ModelForm):
 
     class Meta:
         model = Story
-        fields = ['title', 'slug', 'edit_slug', 'template', 'variables', 'modified', 'author_name', 'author_email']
+        fields = ['title', 'slug', 'edit_slug', 'template', 'from_template', 'variables', 'modified', 'author_name', 'author_email']

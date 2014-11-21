@@ -1,25 +1,24 @@
 {% extends "base.html" %}
 {% load bleach_tags %}
+{% load social_share %}
+
 {% block main %}
-
-
-
     <div class="container">
         <div class="col-sm-12 col-md-9 col-lg-8" id="lead-story">
-            <h2>{{ story.title }} </h2>
-
-
-            <img src="http://placehold.it/225x350" class="img-rounded pull-right">
-            {{ story.display_text|bleach  }}
-
-            <a href="{% url 'story_custom' story.slug %}" class="btn btn-warning btn-lg"><span class="glyphicon glyphicon-edit"></span> Fill In Story</a>
-            <div class="clearfix visible-xs-block visible-sm-block visible-md-block visible-lg-block"></div>
-
+        <h3 class="alert alert-success alert-dismissable"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Story Template Saved</h3>
+        <p><strong>To edit your story in the future, save this link:</strong>  <a href="{% url 'story_update' story.edit_slug %}">{{ SITE_URL }}{% url 'story_update' story.edit_slug %}</a></p>
+        <p><strong>To view or share your story, use this link:</strong> <a href="{% url 'story_detail' story.slug %}">{{ SITE_URL }}{% url 'story_detail' story.slug %}</a></p>
+        <p><strong>If you supplied an author email, we sent you an email with a link back to this page.</strong> If you share this page with anyone If you would like to add or change an email, just edit your story using the link above.</p>
             <a title="send to Facebook" class="btn btn-info" href="http://www.facebook.com/sharer.php?s=100&p[title]={{ story.title }}&p[summary]={{ story.display_text|truncatechars:100|bleach }}&p[url]=http://fillinthenews.twoifiplay.com/{% url 'story_detail' story.slug %}&p[images][0]=YOUR_IMAGE_TO_SHARE_OBJECT"
   target="_blank"><span> Share on Facebook</span></a>
             <a title="tweet this!" class="btn btn-info" href="http://twitter.com/share?text={{ story.title|truncatechars:100|bleach }}&url=http://fillinthenews.twoifiplay.com/{% url 'story_detail' story.slug %}&hashtags=fillinthenews"
   target="_blank"><span> Tweet on Twitter</span></a>
             <a title="Email the story" href="mailto: ?subject={{ story.title }}&body={{ SITE_URL }}{{ story.get_absolute_url }}" class="btn btn-info">Email your story</a></p>
+            <h2>{{ story.title }} <a href="{% url 'story_update' story.edit_slug %}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></h2>
+
+
+            <img src="http://placehold.it/225x350" class="img-rounded pull-right">
+            {{ story.display_text|bleach  }}
 
             <div class="clearfix visible-xs-block visible-sm-block visible-md-block visible-lg-block"></div>
 
@@ -85,5 +84,5 @@
             </div>
         </div>
 
-<a href="{% url 'story_update' story.edit_slug %}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Secret Editing Menu</a>
+
     </div>{% endblock %}

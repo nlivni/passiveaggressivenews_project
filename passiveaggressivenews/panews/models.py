@@ -95,7 +95,6 @@ class Story(models.Model):
     variables = ListField(blank=True, null=True)
     tags = TaggableManager(blank=True)
     created = models.DateTimeField(editable=False)
-    #auto get mod date
     modified = models.DateTimeField(default=datetime.datetime.now())
     from_template = models.ForeignKey('self', blank=True, null=True)
 
