@@ -81,7 +81,7 @@ $(function() {
       //call the function and pass the array_index value needed to take this variable out of the textarea we are using to submit the "array" of variables
       removeFromVarList(array_index);
     //remove the input and any children elements of the input field
-$(this).parent().remove();
+$(this).parent().parent().remove();
         //update view
         story_harvest();
         update_preview();
@@ -129,7 +129,7 @@ updated_text = "[" + updated_text + "]";
         var field_count = $('.var_input').length;
 
         // insert new field after last field
-        $(last_field).after('<div class="var_input form-group"><input class="form-control var-field" id="varfield-'+ field_count + '" type="text" value=""></div>');
+        $(last_field).after('<div class="var_input form-group"><div class="input-group"><input class="form-control var-field" id="var-field-'+ field_count + '" type="text" value=""><span class="input-group-btn"><button data-var="'+ field_count + '" class ="remove_var btn btn-default" ><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div></div>');
 
         // get new field count
         var field_count = $('.var_input').length;

@@ -132,24 +132,12 @@ BLEACH_STRIP_COMMENTS = False
 
 # Use the CKEditorWidget for bleached HTML fields
 BLEACH_DEFAULT_WIDGET = 'ckeditor.widgets.CKEditorWidget'
-# BLEACH_DEFAULT_WIDGET = 'django.forms.EmailInput'
 
-#
-# CKEDITOR_UPLOAD_PATH = "uploads/"
-#
-# CKEDITOR_IMAGE_BACKEND = 'pillow'
-#
-# CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
-#
-# CKEDITOR_CONFIGS = {
-#     'awesome_ckeditor': {
-#         'toolbar': 'Basic',
-#     },
-#     'default': {
-#         'toolbar': 'Basic',
-#     },
-# }
-#
 
-#DJANGO_WYSIWYG_MEDIA_URL = STATIC_URL + "ckeditor/"
-DJANGO_WYSIWYG_FLAVOR = "ckeditor"
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'fillinthenews@twoifiplay.com'
+EMAIL_HOST_PASSWORD = 'wEHplO68sFCXJOcmXo2N'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'fillinthenews@twoifiplay.com'
+DEFAULT_TO_EMAIL = 'fillinthenews@twoifiplay.com'

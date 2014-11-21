@@ -31,7 +31,18 @@
                 <h3>Variables</h3>
                 <div id="var_fields">
                     {% if object.variables %}
-                    {% for v in object.variables %}<div class="var_input form-group" ><input class="form-control var-field" id="var-field-{{ forloop.counter0 }}" type="text" value="{{ v }}"></div></input>{% endfor %}
+                    {% for v in object.variables %}
+                        <div class="var_input form-group" >
+                            <div class="input-group">
+                                <input class="form-control var-field" id="var-field-{{ forloop.counter0 }}" type="text" value="{{ v }}">
+                                    <span class="input-group-btn">
+                                        <button  data-var="{{ forloop.counter0 }}" class ="remove_var btn btn-default" type="button">
+                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"> </span>
+                                        </button>
+                                    </span>
+                            </div>
+                        </div>
+                    {% endfor %}
                     {% else %}<div class="var_input form-group" ><input class="form-control var-field" id="var-field-0" type="text" value=""></div></input>
                     {% endif %}
 
