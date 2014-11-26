@@ -1,0 +1,18 @@
+{% load bleach_tags %}
+
+
+<div id="category-stories" class="col-sm-12 col-md-9 col-lg-8">
+{% for t in template_list %}
+    {% if forloop.first %}<div class="row">{% endif %}
+
+    <div class="col-sm-4 story media">
+        <h4 class="media-heading"><a href="{% url 'story_detail' t.slug %}">{{ t.title }}</a></h4>
+                {% if t.image %}<img src="{{ t.icon_image.url }}" width="100px" height="100px" class="pull-left img-thumbnail media-object">{% endif %}
+
+        <p>{{ t.display_text|truncatechars:85|bleach }}
+            <a href="{% url 'story_detail' story.slug %}">Read more</a></p>
+    </div>
+    {% if forloop.counter|divisibleby:3 %}</div><div class="row">{% endif %}
+    {% if forloop.last %}</div>{% endif %}
+{% endfor %}
+</div>

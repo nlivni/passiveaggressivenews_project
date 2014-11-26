@@ -13,7 +13,7 @@ urlpatterns = patterns('',
         StoryListView.as_view(
             model=Story,
             template_name="home.html",
-            context_object_name = "story_list"
+            context_object_name="story_list"
                     )
         , name='home'),
 

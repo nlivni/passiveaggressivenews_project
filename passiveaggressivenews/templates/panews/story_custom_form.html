@@ -1,7 +1,11 @@
 {% extends "base.html" %}
-{% load staticfiles%}
+{% load staticfiles %}
 {% load crispy_forms_tags %}
 {% load bleach_tags %}
+
+{% block title %}
+Filling in {{ object.title }}- {{ block.super }}
+{% endblock title %}
 
 {% block main %}
 
@@ -23,25 +27,27 @@
 
     <div class="row">
         <div class="col-sm-9">
-            <div id ="preview" class="jumbotron">No Text</div>
-        </div>
-
-
-        <div class="col-sm-3">
-            <h3>Variables</h3>
-            <div id="var_fields">
-                {% if object.variables %}
-                {% for v in object.variables %}<div class="var_input form-group" ><input class="form-control var-field" id="var-field-{{ forloop.counter0 }}" type="text" value="{{ v }}"></div></input>{% endfor %}
-                {% else %}This template has no variables so there is nothing to change.
-                {% endif %}
-            </div>
-                {% load wysiwyg %}
+                            {% load wysiwyg %}
                 {% wysiwyg_setup %}
 
                 {{ form.media }}
 
                 {% crispy form %}
                 {% wysiwyg_editor "id_template" %}
+
+            <div id ="preview" class="jumbotron">No Text</div>
+        </div>
+
+
+        <div class="col-sm-3">
+            <div id="var_fields">
+                {% if object.variables %}
+                {% for v in object.variables %}<div class="var_input form-group" ><input class="form-control var-field" id="var-field-{{ forloop.counter0 }}" type="text" value="{{ v }}"></div></input>{% endfor %}
+                {% else %}This template has no variables so there is nothing to change.
+                {% endif %}
+            </div>
+            <input type="submit" form="story_form" class="btn btn-primary" value="Save Story"/>
+
         </div>
     </div>
 </div>
@@ -52,6 +58,6 @@
 {% block scripts %}
     <script src="{% static "js/story_validate.js" %}"></script>
     <script src="{% static "js/story_vars.js" %}"></script>
-
+    {{ block.super }}
 
 {% endblock %}

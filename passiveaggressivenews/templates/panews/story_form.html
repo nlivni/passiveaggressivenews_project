@@ -1,7 +1,10 @@
 {% extends "base.html" %}
-{% load staticfiles%}
+{% load staticfiles %}
 {% load crispy_forms_tags %}
 {% load bleach_tags %}
+{% block title %}
+Template Form - {{ block.super }}
+{% endblock title %}
 
 {% block main %}
 
@@ -43,7 +46,19 @@
                             </div>
                         </div>
                     {% endfor %}
-                    {% else %}<div class="var_input form-group" ><input class="form-control var-field" id="var-field-0" type="text" value=""></div></input>
+                    {% else %}
+
+                        <div class="var_input form-group" >
+                            <div class="input-group">
+                                <input class="form-control var-field" id="var-field-0" type="text" placeholder="variable"  value='the two characters "%s" as a placeholder'>
+                                    <span class="input-group-btn">
+                                        <button  data-var="0" class ="remove_var btn btn-default" type="button">
+                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"> </span>
+                                        </button>
+                                    </span>
+                            </div>
+                        </div>
+
                     {% endif %}
 
                     <div class="form-actions">
@@ -53,8 +68,6 @@
             </div>
 
             <div class="col-sm-8 col-sm-pull-4">
-{#                <h3>Form</h3>#}
-                <h3>Use a <em>%s</em> as a variable placeholder in the template.</h3>
                 {% load wysiwyg %}
                 {% wysiwyg_setup %}
 
@@ -67,10 +80,11 @@
         </div>
     </div>
 
-{% endblock %}
+{% endblock main %}
 
 {% block scripts %}
     <script src="{% static "js/story_validate.js" %}"></script>
     <script src="{% static "js/story_vars.js" %}"></script>
+    {{ block.super }}
 
-{% endblock %}
+{% endblock scripts %}

@@ -6205,3 +6205,7 @@ footer {
 #preview {
   font-size: .8em;
 }
+.btn-lg,
+.btn-group-lg > .btn {
+  margin: 20px;
+}

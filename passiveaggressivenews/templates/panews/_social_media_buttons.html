@@ -1,0 +1,8 @@
+{% load bleach_tags %}
+
+            <div class="clearfix visible-xs-block visible-sm-block visible-md-block visible-lg-block"></div>
+                <a title="send to Facebook" class="btn btn-info btn-lg" href="http://www.facebook.com/sharer.php?s=100&p[title]={{ story.title }}&p[summary]={{ story.display_text|truncatechars:100|bleach|force_escape }}&p[url]=http://fillinthenews.twoifiplay.com/{% url 'story_detail' story.slug %}&p[images][0]={% if story.image %}{{ story.display_image.url }}{% endif %}"
+      target="_blank"><span> Share on Facebook</span></a>
+                <a title="tweet this!" class="btn btn-info btn-lg" href="http://twitter.com/share?text={{ story.title|truncatechars:100 }}&url=http://fillinthenews.twoifiplay.com/{% url 'story_detail' story.slug %}&hashtags=fillinthenews"
+      target="_blank"><span> Tweet on Twitter</span></a>
+                <a class="btn btn-info btn-lg" title="Email the story" href="mailto: ?subject={{ story.title }}&body={{ SITE_URL }}{{ story.get_absolute_url }}">Email your story</a></p>

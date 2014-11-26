@@ -1,5 +1,11 @@
 {% extends "base.html" %}
 {% load bleach_tags %}
+
+{% block title %}
+    {{ story.title }}- {{ block.super }}
+{% endblock title %}
+
+
 {% block main %}
 
 
@@ -8,82 +14,23 @@
         <div class="col-sm-12 col-md-9 col-lg-8" id="lead-story">
             <h2>{{ story.title }} </h2>
 
-
-            <img src="http://placehold.it/225x350" class="img-rounded pull-right">
+            {% if story.image %}<img src="{{ story.display_image.url }}" class="img-rounded img-responsive pull-right">{% endif %}
             {{ story.display_text|bleach  }}
 
             <a href="{% url 'story_custom' story.slug %}" class="btn btn-warning btn-lg"><span class="glyphicon glyphicon-edit"></span> Fill In Story</a>
-            <div class="clearfix visible-xs-block visible-sm-block visible-md-block visible-lg-block"></div>
 
-            <a title="send to Facebook" class="btn btn-info" href="http://www.facebook.com/sharer.php?s=100&p[title]={{ story.title }}&p[summary]={{ story.display_text|truncatechars:100|bleach }}&p[url]=http://fillinthenews.twoifiplay.com/{% url 'story_detail' story.slug %}&p[images][0]=YOUR_IMAGE_TO_SHARE_OBJECT"
-  target="_blank"><span> Share on Facebook</span></a>
-            <a title="tweet this!" class="btn btn-info" href="http://twitter.com/share?text={{ story.title|truncatechars:100|bleach }}&url=http://fillinthenews.twoifiplay.com/{% url 'story_detail' story.slug %}&hashtags=fillinthenews"
-  target="_blank"><span> Tweet on Twitter</span></a>
-            <a title="Email the story" href="mailto: ?subject={{ story.title }}&body={{ SITE_URL }}{{ story.get_absolute_url }}" class="btn btn-info">Email your story</a></p>
-
+        {% include 'panews/_social_media_buttons.html' %}
             <div class="clearfix visible-xs-block visible-sm-block visible-md-block visible-lg-block"></div>
 
         </div>
-        <div id="associated-stories-column" class="col-sm-12 col-md-3 col-lg-3">
-            <h4>Obituary for a Sponge</h4>
-            <p class="story">After a long life, Squiggy the Sponge passed on last week. Though his life's work was never fulfilled, he is survived by his children Squoggy, Squelchy, and Zeke.</p>
-            <h4>Have you seen the tupperware?</h4>
-            <p class="story">Tupperware continues to go missing. Could it be related to the why there is never a clean fork?</p>
-            <h4>Man Arrested for Iguana Trafficking</h4>
-            <p class="story">Lucas ipsum dolor sit amet maul kit boba thrawn tusken raider k-3po jade mandalore dantooine sebulba.</p>
-        </div>
 
+        {% include 'panews/_extra_stories.html' %}
 
         <!-- todo http://getbootstrap.com/components/#media-->
 
-        <div id="category-stories" class="col-sm-12 col-md-9 col-lg-8">
-            <div class="col-sm-6 col-md-4 col-lg-4 story media">
-                <h4 class="media-heading">Sports Story</h4>
-                <img src="http://placehold.it/100x100" width="100px" height="100px" class="pull-left img-thumbnail media-object">
+        {% include 'panews/_story_template_list.html' %}
 
-                <p>Lucas ipsum dolor sit amet maul kit boba thrawn tusken raider k-3po jade mandalore dantooine sebulba.
-                    <a href="#">Read more</a></p>
-            </div>
-            <div class="clearfix visible-xs-block"></div>
-
-            <div class="col-sm-6 col-md-4 col-lg-4 story media">
-                <h4 class="media-heading">Category Story</h4>
-                <img src="http://placehold.it/100x100" width="100px" height="100px" class="pull-left img-thumbnail media-object">
-                <p>Lucas ipsum dolor sit amet maul kit boba thrawn tusken raider k-3po jade mandalore dantooine sebulba.
-                    <a href="#">Read more</a></p>
-            </div>
-            <div class="clearfix visible-sm-block"></div>
-            <div class="clearfix visible-xs-block"></div>
-
-            <div class="col-sm-6 col-md-4 col-lg-4 story media">
-                <h4 class="media-heading">Category Story</h4>
-                <img src="http://placehold.it/100x100" width="100px" height="100px" class="pull-left img-thumbnail media-object">
-                <p>Lucas ipsum dolor sit amet maul kit boba thrawn tusken raider k-3po jade mandalore dantooine sebulba.
-                    <a href="#">Read more</a></p>
-            </div>
-            <div class="clearfix visible-xs-block"></div>
-            <div class="col-sm-6 col-md-4 col-lg-4 story media">
-                <h4 class="media-heading">Category Story</h4>
-                <img src="http://placehold.it/100x100" width="100px" height="100px" class="pull-left img-thumbnail media-object">
-                <p>Lucas ipsum dolor sit amet maul kit boba thrawn tusken raider k-3po jade mandalore dantooine sebulba.
-                    <a href="#">Read more</a></p>
-            </div>
-            <div class="clearfix visible-xs-block"></div>
-            <div class="clearfix visible-sm-block"></div>
-            <div class="col-sm-6 col-md-4 col-lg-4 story media">
-                <h4 class="media-heading">Category Story</h4>
-                <img src="http://placehold.it/100x100" width="100px" height="100px" class="pull-left img-thumbnail media-object">
-                <p>Lucas ipsum dolor sit amet maul kit boba thrawn tusken raider k-3po jade mandalore dantooine sebulba.
-                    <a href="#">Read more</a></p>
-            </div>
-            <div class="clearfix visible-xs-block"></div>
-            <div class="col-sm-6 col-md-4 col-lg-4 story media">
-                <h4 class="media-heading">Category Story</h4>
-                <img src="http://placehold.it/100x100" width="100px" height="100px" class="pull-left img-thumbnail media-object">
-                <p>Lucas ipsum dolor sit amet maul kit boba thrawn tusken raider k-3po jade mandalore dantooine sebulba.
-                    <a href="#">Read more</a></p>
-            </div>
-        </div>
 
 <a href="{% url 'story_update' story.edit_slug %}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Secret Editing Menu</a>
-    </div>{% endblock %}
+    </div>
+{% endblock main %}

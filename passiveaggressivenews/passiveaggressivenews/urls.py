@@ -9,6 +9,7 @@ urlpatterns = patterns('',
 
                        url(r'', include('panews.urls')),
                        # url(r'^ckeditor/', include('ckeditor.urls')),
+                        url(r'^photologue/', include('photologue.urls', namespace='photologue')),
                        url(r'^admin/', include(admin.site.urls)),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL,
                                                                            document_root=settings.STATIC_ROOT)

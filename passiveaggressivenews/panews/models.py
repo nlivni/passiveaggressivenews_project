@@ -5,6 +5,8 @@ import datetime
 import ast
 from django.core.urlresolvers import reverse_lazy
 from django_bleach.models import BleachField
+from imagekit.models import ImageSpecField
+from imagekit.processors import ResizeToFit, ResizeToFill
 
 
 class ListField(models.TextField):
@@ -83,15 +85,29 @@ class Story(models.Model):
     """
     generic story model
     """
-    title = models.CharField(max_length=50)
+    title = models.CharField(max_length=50, default="A man, a plan, a can of spam, a banana: Bananama!")
     slug = models.SlugField(max_length=255, unique=True, default=make_uuid)
     edit_slug = models.SlugField(max_length=255, unique=True, default=make_uuid)
     category = models.ForeignKey(Category, blank=True, null=True)
     subtitle = models.CharField(max_length=50, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
-    author_name = models.CharField(max_length=30, blank=True, null=True)
+    image = models.ImageField(blank=True, null=True, upload_to='story_images')
+    display_image = ImageSpecField(source='image',
+                                   processors=[ResizeToFit(400, 400)],
+                                   format='JPEG',
+                                   options={'quality': 60})
+    icon_image = ImageSpecField(source='image',
+                                   processors=[ResizeToFill(100, 100)],
+                                   format='JPEG',
+                                   options={'quality': 60})
+    image_caption = models.CharField(blank=True, null=True, max_length=150)
     author_email = models.EmailField(blank=True, null=True)
-    template = BleachField(blank=True, null=True)
+    template = BleachField(blank=True, null=True, default="<p>Change this text in the template box below to create a "
+                                                          "reusable story template with changeable variables. "
+                                                          "You can use <strong><em>%s</em></strong> in the template "
+                                                          "box to signify a variable that others will be able to "
+                                                          "fill in later."
+                                                          "<p>Happy journalism!</p>")
     variables = ListField(blank=True, null=True)
     tags = TaggableManager(blank=True)
     created = models.DateTimeField(editable=False)
